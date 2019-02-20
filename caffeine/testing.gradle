@@ -37,6 +37,10 @@ testNames.each { testName ->
       systemProperties['values'] = strength[1]
       systemProperties['compute'] = isAsync ? 'async' : 'sync'
       systemProperties['stats'] = hasStats ? 'enabled' : 'disabled'
+
+      it.options {
+        jvmArgs ((strength[1] == 'soft') ? '-XX:+UseParallelGC' : '-XX:+UseG1GC')
+      }
     }
     systemProperties['implementation'] = implementation
 
